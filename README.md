@@ -4,7 +4,7 @@ A one-thumb mobile browser game where every route you take returns as a moving o
 
 ## Play
 
-Open `index.html` in a browser, or enable GitHub Pages for the repository.
+Open `index.html` through a web server, or enable GitHub Pages for the repository.
 
 ### Controls
 
@@ -31,6 +31,12 @@ Open `index.html` in a browser, or enable GitHub Pages for the repository.
 - Local high scores and playtest statistics
 - Native score sharing where supported
 
+## Repository structure
+
+- `index.html` loads and launches the browser game
+- `payload.txt` contains the compressed Version 2 game build
+- `LICENSE` contains the MIT license
+
 ## Deploy with GitHub Pages
 
 1. Open the repository's **Settings**.
@@ -39,4 +45,4 @@ Open `index.html` in a browser, or enable GitHub Pages for the repository.
 4. Select the `main` branch and `/ (root)` folder.
 5. Save and wait for GitHub to publish the site.
 
-The game has no dependencies and runs entirely from this single HTML file.
+The game has no external libraries or build step. It requires a modern browser with `DecompressionStream` support.
