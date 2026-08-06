@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no">
+  <meta name="theme-color" content="#070a14">
+  <title>Echo Loop V2</title>
+  <style>
+    html,body{margin:0;width:100%;height:100%;display:grid;place-items:center;background:#070a14;color:#eef4ff;font-family:system-ui,-apple-system,sans-serif}
+    main{text-align:center;padding:24px}small{color:#9aa7c7}
+  </style>
+</head>
+<body>
+  <main id="loading"><h1>Echo Loop V2</h1><p>Loading game…</p><small>Modern Chrome, Safari, Edge, or Firefox required.</small></main>
+  <script>
+    (async()=>{
+      try{
+        if(!('DecompressionStream' in window)) throw new Error('Unsupported browser');
+        const encoded=(await fetch('payload.txt',{cache:'no-store'}).then(r=>{if(!r.ok)throw new Error('Payload missing');return r.text()})).trim();
+        const binary=atob(encoded);
+        const bytes=new Uint8Array(binary.length);
+        for(let i=0;i<binary.length;i++)bytes[i]=binary.charCodeAt(i);
+        const stream=new Blob([bytes]).stream().pipeThrough(new DecompressionStream('gzip'));
+        const game=await new Response(stream).text();
+        document.open();document.write(game);document.close();
+      }catch(error){
+        document.getElementById('loading').innerHTML='<h1>Unable to load Echo Loop</h1><p>Please open this page in an updated mobile browser.</p><small>'+String(error.message||error)+'</small>';
+      }
+    })();
+  </script>
+</body>
+</html>
